@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>Contacts</h1>
+  <form>
+    <input type="search" name="q" value="{{ request.GET.q }}">
+  </form>
+  <ul id="results">
+    {% for contact in contacts %}<li>{{ contact.name }} - {{ contact.email }}</li>{% endfor %}
+  </ul>
+  <div>
+    {% if contacts.has_previous %}
+      <form method="get">
+        <input type="hidden" name="page" value="{{ contacts.previous_page_number }}">
+        <input type="hidden" name="q" value="{{ request.GET.q }}">
+        <button>Previous</button>
+      </form>
+    {% endif %}
+    {% if contacts.has_next %}
+      <form method="get">
+        <input type="hidden" name="page" value="{{ contacts.next_page_number }}">
+        <input type="hidden" name="q" value="{{ request.GET.q }}">
+        <button>Next</button>
+      </form>
+    {% endif %}
+  </div>
+{% endblock content %}
